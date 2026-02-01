@@ -21,7 +21,7 @@ pnpm install
 
 2. Run the dev server
 
-```bash
+```bash 
 npm run dev
 # Open http://localhost:3000
 ```
