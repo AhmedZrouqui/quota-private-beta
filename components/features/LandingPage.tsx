@@ -55,6 +55,10 @@ const LandingPage = () => {
         return;
       }
 
+      if (payload.message === 'duplicate') {
+        setSuccessMessage("You're already on the waitlist! 🎉");
+      }
+
       setStatus('success');
       setEmail('');
     } catch (err) {

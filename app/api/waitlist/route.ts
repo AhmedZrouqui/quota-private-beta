@@ -20,9 +20,7 @@ export async function POST(request: Request) {
     if (error) {
       // Handle duplicates gracefully
       if (error.code === '23505' || String(error.message).toLowerCase().includes('duplicate')) {
-        // still attempt to send confirmation
-        await sendWaitlistEmail(email);
-        return NextResponse.json({ success: true, message: 'Already on waitlist' });
+        return NextResponse.json({ success: true, message: 'duplicate' });
       }
       return NextResponse.json({ success: false, error: error.message ?? 'Database error' }, { status: 500 });
     }
