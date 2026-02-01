@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-jetbrains-mono: var(--font-jetbrains-mono)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +23,48 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jetbrains-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+}
+
+/* Override browser autofill styles so inputs keep the intended dark background and white text */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Ensure focused autofill also keeps the same look */
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Firefox autofill fallback */
+input:-moz-autofill,
+textarea:-moz-autofill,
+select:-moz-autofill {
+  box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  -moz-text-fill-color: #ffffff !important;
+}
+
+/* More specific overrides for email inputs (Chrome/Edge) to fix white autofill background seen with suggestions */
+input[type="email"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  box-shadow: 0 0 0px 1000px #0F0F0F inset !important;
+  background-color: #0F0F0F !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Ensure the first-line text (Chrome) is white when autofill applies */
+input[type="email"]:-webkit-autofill::first-line {
+  color: #ffffff !important;
 }
